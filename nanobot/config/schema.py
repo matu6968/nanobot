@@ -21,6 +21,16 @@ class TelegramConfig(BaseModel):
     proxy: str | None = None  # HTTP/SOCKS5 proxy URL, e.g. "http://127.0.0.1:7890" or "socks5://127.0.0.1:1080"
 
 
+class MastodonConfig(BaseModel):
+    """Mastodon channel configuration (Fediverse DMs)."""
+    enabled: bool = False
+    base_url: str = "https://mastodon.social"  # Instance URL, e.g. https://mastodon.social
+    token: str = ""  # Access token from Mastodon user account (read:statuses + write:statuses)
+    allow_from: list[str] = Field(default_factory=list)  # Allowed account IDs or acct (empty = allow all)
+    proxy: str | None = None  # HTTP/SOCKS5 proxy URL, e.g. "http://127.0.0.1:7890" or "socks5://127.0.0.1:1080"
+    poll_interval_seconds: int = 30  # How often to poll for new DMs
+
+
 class FeishuConfig(BaseModel):
     """Feishu/Lark channel configuration using WebSocket long connection."""
     enabled: bool = False
@@ -153,6 +163,7 @@ class ChannelsConfig(BaseModel):
     email: EmailConfig = Field(default_factory=EmailConfig)
     slack: SlackConfig = Field(default_factory=SlackConfig)
     qq: QQConfig = Field(default_factory=QQConfig)
+    mastodon: MastodonConfig = Field(default_factory=MastodonConfig)
 
 
 class AgentDefaults(BaseModel):

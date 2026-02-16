@@ -136,6 +136,18 @@ class ChannelManager:
                 logger.info("QQ channel enabled")
             except ImportError as e:
                 logger.warning(f"QQ channel not available: {e}")
+
+        # Mastodon channel
+        if self.config.channels.mastodon.enabled:
+            try:
+                from nanobot.channels.mastodon import MastodonChannel
+                self.channels["mastodon"] = MastodonChannel(
+                    self.config.channels.mastodon,
+                    self.bus,
+                )
+                logger.info("Mastodon channel enabled")
+            except ImportError as e:
+                logger.warning(f"Mastodon channel not available: {e}")
     
     async def _start_channel(self, name: str, channel: BaseChannel) -> None:
         """Start a channel and log any exceptions."""

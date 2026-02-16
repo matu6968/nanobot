@@ -143,12 +143,13 @@ That's it! You have a working AI assistant in 2 minutes.
 
 ## 💬 Chat Apps
 
-Talk to your nanobot through Telegram, Discord, WhatsApp, Feishu, Mochat, DingTalk, Slack, Email, or QQ — anytime, anywhere.
+Talk to your nanobot through Telegram, Discord, Mastodon, WhatsApp, Feishu, Mochat, DingTalk, Slack, Email, or QQ — anytime, anywhere.
 
 | Channel | Setup |
 |---------|-------|
 | **Telegram** | Easy (just a token) |
 | **Discord** | Easy (bot token + intents) |
+| **Mastodon** | Easy (bot token + intents) |
 | **WhatsApp** | Medium (scan QR) |
 | **Feishu** | Medium (app credentials) |
 | **Mochat** | Medium (claw token + websocket) |
@@ -289,6 +290,46 @@ If you prefer to configure manually, add the following to `~/.nanobot/config.jso
 ```bash
 nanobot gateway
 ```
+
+</details>
+
+<details>
+<summary><b>Mastodon (Fediverse DMs)</b></summary>
+
+Talk to the bot over the Fediverse via **direct messages**. Uses polling — no public IP required.
+
+**1. Create an app and get an access token**
+- On your Mastodon instance (e.g. mastodon.social), go to **Settings → Development → New application**
+- Name it (e.g. "nanobot"), enable **read:statuses** and **write:statuses**, create the app
+- Open the app → **User token** → generate and copy the access token
+
+**2. Configure**
+
+```json
+{
+  "channels": {
+    "mastodon": {
+      "enabled": true,
+      "base_url": "https://mastodon.social",
+      "token": "YOUR_ACCESS_TOKEN",
+      "allowFrom": []
+    }
+  }
+}
+```
+
+- `base_url`: your instance URL (no trailing slash)
+- `token`: the user access token from step 1
+- `allowFrom`: leave empty to allow all DMs, or add account IDs / `acct` (e.g. `["user@instance.social"]`) to restrict
+- Optional: `proxy` (e.g. `"http://127.0.0.1:7890"`), `poll_interval_seconds` (default 30)
+
+**3. Run**
+
+```bash
+nanobot gateway
+```
+
+Then DM the bot from any Fediverse account (same instance or federated).
 
 </details>
 
