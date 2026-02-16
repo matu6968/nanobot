@@ -203,6 +203,7 @@ class ProvidersConfig(BaseModel):
     moonshot: ProviderConfig = Field(default_factory=ProviderConfig)
     minimax: ProviderConfig = Field(default_factory=ProviderConfig)
     aihubmix: ProviderConfig = Field(default_factory=ProviderConfig)  # AiHubMix API gateway
+    routeway: ProviderConfig = Field(default_factory=ProviderConfig)  # Routeway (api.routeway.ai), bare model names
 
 
 class GatewayConfig(BaseModel):

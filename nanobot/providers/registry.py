@@ -117,6 +117,24 @@ PROVIDERS: tuple[ProviderSpec, ...] = (
         model_overrides=(),
     ),
 
+    # Routeway (api.routeway.ai): OpenAI-compatible. Use openai/ prefix so LiteLLM routes to api_base.
+    ProviderSpec(
+        name="routeway",
+        keywords=("routeway",),
+        env_key="OPENAI_API_KEY",
+        display_name="Routeway",
+        litellm_prefix="openai",            # required so LiteLLM uses our api_base for the request
+        skip_prefixes=(),
+        env_extras=(),
+        is_gateway=True,
+        is_local=False,
+        detect_by_key_prefix="",
+        detect_by_base_keyword="routeway",
+        default_api_base="https://api.routeway.ai/v1",
+        strip_model_prefix=True,            # kimi-k2-0905:free → openai/kimi-k2-0905:free
+        model_overrides=(),
+    ),
+
     # === Standard providers (matched by model-name keywords) ===============
 
     # Anthropic: LiteLLM recognizes "claude-*" natively, no prefix needed.
